@@ -1,0 +1,23 @@
+<article class="flex-row">
+    <div class="container-avatar">
+       <img src="{{avatar}}"/>
+    </div>
+    <div class="container-touit">
+        <h3>{{touit.name}} - <span>{{touit.ts  | date:'dd/MM/yyyy HH:mm'}}</span></h3>
+        <p>{{touit.message}}</p>
+        <div class="flex-row flex-between">
+            <div class="comments">
+                <img src="/assets/svg/comments-regular.svg" alt="comments"/>
+                <span>{{touit.comments_count}}</span>
+            </div>
+            <div class="like">
+                <img src="/assets/svg/heart-regular.svg" alt="likes"/>
+                <img hidden src="/assets/svg/heart-solid.svg" alt="likes"/>
+                <span>{{touit.likes}}</span>
+            </div>
+            <div class="retouit">
+                <img src="/assets/svg/retweet-solid.svg" alt="comments"/>
+            </div>
+        </div>
+    </div>
+</article>
