@@ -1,10 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 :root{
     --black:#000;
+    --grey:rgb(32 35 39);
     --border-color:rgb(47, 51, 54);
     --color-txt-white:#d9d9d9;
     --color-txt-grey:#6e767d;
     --green:rgb(0, 186, 124);
+    --green-hover:#005d3e;
+    --red:#e75555;
 }
 
 :root *{
@@ -34,4 +37,20 @@ body{
 
 .hashtag{
     color: var(--green);
+}
+.error{
+    color: var(--red) ;
+}
+
+button{
+    background-color: var(--green);
+    color: var(--color-txt-white);
+    font-weight: 700;
+    text-align: center;
+    border-radius: 15px;
+    padding: .5rem;
+    border: 1px solid rgb(0,0,0);
+}
+button:hover{
+    background-color: var(--green-hover);
 }

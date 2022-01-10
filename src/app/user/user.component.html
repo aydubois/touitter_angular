@@ -1,13 +1,19 @@
-<form [formGroup]="connectForm">
-    <div>
-        <label for="username">Username</label>
-        <input name="username" type="text" formControlName="username" autocomplete="username"/>
-    </div>
-    <div>
-        <label for="password">Password</label>
-        <input name="password" type="password" formControlName="password" autocomplete="current-password"/>
-    </div>
+<section>
     <em class="error" *ngIf="errorMessage">{{errorMessage}}</em>
-    <button  (click)="connect(connectForm.value)">Se connecter</button>
-    <button (click)="register(connectForm.value)">S'enregistrer</button>
-</form>
+    <form [formGroup]="connectForm">
+        <!-- <div class="form-group"> -->
+            <div class="flex-row">
+                <label for="username">Username : </label>
+                <input name="username" type="text" formControlName="username" />
+            </div>
+            <div class="flex-row pass">
+                <label for="password">Password : </label>
+                <input name="password" type="password" formControlName="password" />
+            </div>
+        <!-- </div> -->
+        <div class="form-group flex-column">
+            <button  (click)="connect(connectForm.value)">Se connecter</button>
+            <button (click)="register(connectForm.value)">S'enregistrer</button>
+        </div>
+    </form>
+</section>

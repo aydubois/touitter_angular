@@ -8,6 +8,8 @@ import { environment } from "src/environments/environment";
 export class TouitService{
     urlApi:string = environment.baseUrlApi
     authoriz:string = environment.authoriz
+
+    allTouits:ITouit[] 
     constructor(private http:HttpClient){}
 
     private handleError<T>(operation = 'operation',result?:T){
@@ -16,7 +18,7 @@ export class TouitService{
         return of(result as T)
       }
     }
-
+    
     getTouits():Observable<ITouitResponse>{
         return this.http.get<ITouitResponse>(this.urlApi+'/list')
             .pipe(catchError(this.handleError<ITouitResponse>('getTouits')))

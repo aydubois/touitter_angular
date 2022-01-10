@@ -13,19 +13,24 @@ export class TouitListComponent implements OnInit, OnChanges {
   @Output() reloadChange:EventEmitter<boolean> = new EventEmitter()
   constructor(private touitService:TouitService) { }
   ngOnInit(): void {
+    this.getTouits()
+  }
+  getTouits(){
     this.touitService.getTouits().subscribe((touits:ITouitResponse)=>{
-      let tt = touits.messages
-      console.log(tt)
       this.touits = []
       for (let i = 0; i < 10; i++) {
         const element = touits.messages[touits.messages.length-1-i];
         this.touits.push(element)
       }
+      this.reload = false
+      this.reloadChange.emit(false)
     })
   }
-
   ngOnChanges(changes:SimpleChanges){
       console.log(changes)
+      if(changes['reload'].currentValue !== changes['reload'].previousValue &&changes['reload'].currentValue === true ){
+       this.getTouits()
+      }
   }
   
 }

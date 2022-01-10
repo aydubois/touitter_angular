@@ -1,11 +1,11 @@
-<section>
+<section class="flex-row">
     <div class="container-avatar">
         <img src="{{user?.avatar}}"/>
     </div>
     <div class="container-write">
+        <em class="error" *ngIf="formTouit.invalid && formTouit.dirty">Le touit de comprendre entre 3 et 256 caractères.</em>
         <form [formGroup]="formTouit">
-            <em class="error" *ngIf="formTouit.invalid && formTouit.dirty"></em>
-            <textarea name="" id="" cols="30" rows="10" formControlName="message"></textarea>
+            <textarea rows="3" formControlName="message" placeholder="Quoi de neuf ?"></textarea>
             <button (click)="sendTouit(formTouit?.value?.message)">Touitter</button>
         </form>
     </div>
