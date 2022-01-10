@@ -1,1 +1,12 @@
-<p>write works!</p>
+<section>
+    <div class="container-avatar">
+        <img src="{{user?.avatar}}"/>
+    </div>
+    <div class="container-write">
+        <form [formGroup]="formTouit">
+            <em class="error" *ngIf="formTouit.invalid && formTouit.dirty"></em>
+            <textarea name="" id="" cols="30" rows="10" formControlName="message"></textarea>
+            <button (click)="sendTouit(formTouit?.value?.message)">Touitter</button>
+        </form>
+    </div>
+</section>

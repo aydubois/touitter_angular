@@ -1,1 +1,13 @@
-<p>user works!</p>
+<form [formGroup]="connectForm">
+    <div>
+        <label for="username">Username</label>
+        <input name="username" type="text" formControlName="username" autocomplete="username"/>
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input name="password" type="password" formControlName="password" autocomplete="current-password"/>
+    </div>
+    <em class="error" *ngIf="errorMessage">{{errorMessage}}</em>
+    <button  (click)="connect(connectForm.value)">Se connecter</button>
+    <button (click)="register(connectForm.value)">S'enregistrer</button>
+</form>

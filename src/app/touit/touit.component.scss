@@ -1,17 +1,25 @@
 article{
     width: 100%;
     padding: 1.5rem;
+    border:1px solid var(--border-color); 
     .container-avatar{
-        width: 5rem;
+        width: 10%;
         margin-right: 1.2rem;
         img{
             width: 100%;
+            border-radius: 50%;
+            background-color: #ffffff3d;
         }
     }
     .container-touit{
-
+        width: 80%;
         img{
             width: 20px;
+            filter: invert(93%) sepia(0%) saturate(513%) hue-rotate(318deg) brightness(93%) contrast(96%);
+        }
+        span{
+            color:var(--color-txt-grey);
+            font-size: .8em;
         }
     }
 }

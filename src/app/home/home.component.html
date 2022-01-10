@@ -1,7 +1,11 @@
 <main class="flex-row flex-center">
     <aside class="oups">
     </aside>
-    <app-touit-list></app-touit-list>
+    <div>
+        <app-user *ngIf="!isConnected" (getUser)="getUser($event)"></app-user>
+        <app-write *ngIf="isConnected" [user]="user"  (reload)="reload = $event"></app-write>
+        <app-touit-list [(reload)]="reload"></app-touit-list>
+    </div>
     <aside class="oups">
     </aside>
 </main>

@@ -1,4 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+:root{
+    --black:#000;
+    --border-color:rgb(47, 51, 54);
+    --color-txt-white:#d9d9d9;
+    --color-txt-grey:#6e767d;
+    --green:rgb(0, 186, 124);
+}
+
 :root *{
     box-sizing: border-box;
 }
@@ -16,4 +24,14 @@
 }
 .flex-between{
     justify-content: space-between;
+}
+
+body{
+    background-color:var(--black);
+    color:var(--color-txt-white);
+}
+
+
+.hashtag{
+    color: var(--green);
 }

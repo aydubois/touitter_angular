@@ -7,7 +7,7 @@ import { environment } from "src/environments/environment";
 @Injectable()
 export class TouitService{
     urlApi:string = environment.baseUrlApi
-
+    authoriz:string = environment.authoriz
     constructor(private http:HttpClient){}
 
     private handleError<T>(operation = 'operation',result?:T){
@@ -22,14 +22,13 @@ export class TouitService{
             .pipe(catchError(this.handleError<ITouitResponse>('getTouits')))
     }
 
-    getAvatar(username:string):Observable<any>{
-        let headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'      
-          });
-        let params = new HttpParams().set("username", username)
-        return this.http.get<Blob>(this.urlApi+"/avatar/get", {params:params,headers:headers, responseType:'blob' as 'json'})
-        
+    sendTouit(authorization:string, message:string):Observable<any>{
+      let body = new URLSearchParams()
+      body.set('message', message)
+
+      let httpHeaders =  new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', this.authoriz+authorization)
+      
+      return this.http.post<string>(this.urlApi+'/send',body.toString() , {headers:httpHeaders})
     }
 
 }
