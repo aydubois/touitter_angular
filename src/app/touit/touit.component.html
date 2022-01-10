@@ -16,8 +16,8 @@
                 <img [hidden]="!touit.isLiked" src="/assets/svg/heart-solid.svg" alt="likes"/>
                 <span>{{touit.likes}}</span>
             </div>
-            <div class="retouit flex-row flex-center">
-                <img src="/assets/svg/retweet-solid.svg" alt="comments"/>
+            <div *ngIf="user" class="retouit flex-row flex-center" (click)="retouit()">
+                <img src="/assets/svg/retweet-solid.svg" alt="retouitter"/>
             </div>
         </div>
     </div>

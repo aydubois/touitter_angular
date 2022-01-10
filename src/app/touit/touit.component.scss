@@ -27,6 +27,9 @@ article{
             font-size: .7em;
             color: var(--color-txt-grey);
         }
+        p{
+            white-space: pre-line;
+        }
         >div{
             width: 50%;
             margin:auto;

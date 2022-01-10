@@ -1,6 +1,6 @@
 <section>
     <ng-container *ngFor="let touit of touits">
-        <app-touit [touit]="touit" (openModalComment)="openModal($event)"></app-touit>
+        <app-touit [touit]="touit" [user]="user" (reload)="isReload($event)" (openModalComment)="openModal($event)"></app-touit>
     </ng-container>
 </section>
 <modal closeOnBodyClick="false" title="" elementId="addComment">

@@ -28,7 +28,6 @@ export class ModalTriggerCloseDirective implements OnInit{
     ngOnInit(): void {
         this.el.addEventListener('click',e =>{
             setTimeout(()=>{
-
                 document.getElementById(this.modalId).hidden = true
             },500)
         })

@@ -26,13 +26,19 @@ export class TouitListComponent implements OnInit, OnChanges {
         const element = touits.messages[touits.messages.length-1-i];
         this.touits.push(element)
       }
+      console.log("get touit")
       this.reload = false
       this.reloadChange.emit(false)
     })
   }
+  isReload(event:boolean){
+    this.reload = event
+    this.getTouits()
+  }
   ngOnChanges(changes:SimpleChanges){
       console.log(changes)
       if(changes['reload']?.currentValue !== changes['reload']?.previousValue &&changes['reload']?.currentValue === true ){
+        console.log("reload after retouit")
        this.getTouits()
       }
   }
