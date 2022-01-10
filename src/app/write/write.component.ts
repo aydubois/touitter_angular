@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ITouit } from '../touit/touit.model';
+import { IComment, ITouit } from '../touit/touit.model';
 import { TouitService } from '../touit/touit.service';
 import { IUser } from '../user/user.model';
 import { UserService } from '../user/user.service';
@@ -12,9 +12,11 @@ import { UserService } from '../user/user.service';
 })
 export class WriteComponent implements OnInit {
 
-  touit:ITouit
   formTouit:FormGroup
   @Input() user:IUser
+  @Input() placeholder:string
+  @Input() isTouit:boolean
+  @Input() touitId:string
   @Output() reload:EventEmitter<boolean> = new EventEmitter()
 
   constructor(private userService:UserService, private touitService:TouitService) { }
@@ -41,7 +43,21 @@ export class WriteComponent implements OnInit {
   }
 
   sendTouit(message:string){
-    this.touitService.sendTouit(this.user.access_token, message).subscribe(res=>this.reload.emit(true))
+    if(this.isTouit){
+      this.touitService.sendTouit(this.user.access_token, message).subscribe(res=>{
+        this.reload.emit(true)
+        this.formTouit['controls']['message'].setValue('')
+      })
+    }else{
+      let comment:IComment={
+        name:this.user.username,
+        comment:message
+      }
+      this.touitService.sendComment(this.touitId,comment).subscribe(res=>{
+        this.reload.emit(true)
+        this.formTouit['controls']['message'].setValue('')
+      })
+    }
   }
 
 }

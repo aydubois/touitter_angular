@@ -3,8 +3,8 @@
     </aside>
     <div>
         <app-user *ngIf="!isConnected" (getUser)="getUser($event)"></app-user>
-        <app-write *ngIf="isConnected" [user]="user"  (reload)="reload = $event"></app-write>
-        <app-touit-list [(reload)]="reload"></app-touit-list>
+        <app-write *ngIf="isConnected" [user]="user" [placeholder]="'Quoi de neuf ?'" (reload)="reload = $event" [isTouit]="true"></app-write>
+        <app-touit-list [(reload)]="reload" [user]="user" ></app-touit-list>
     </div>
     <aside class="oups">
     </aside>

@@ -12,6 +12,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ApplicationPipesModule } from './shared/application-pipes.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './user/user.service';
+import { ModalComponent } from './common/modal.component';
+import { ModalTriggerCloseDirective, ModalTriggerDirective } from './common/modal-trigger.directive';
+import { TrendService } from './common/trend.service';
 
 @NgModule({
   declarations: [
@@ -20,16 +23,19 @@ import { UserService } from './user/user.service';
     CommentComponent,
     UserComponent,
     WriteComponent,
-    TouitListComponent
+    TouitListComponent,
+    ModalComponent,
+    ModalTriggerDirective,
+    ModalTriggerCloseDirective,
   ],
   imports: [
     BrowserModule, 
     HttpClientModule,
     ApplicationPipesModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
-  providers: [TouitService, UserService],
+  providers: [TouitService, UserService, TrendService],
   bootstrap: [HomeComponent]
 })
 export class AppModule { }

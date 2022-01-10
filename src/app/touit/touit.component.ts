@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UserService } from '../user/user.service';
-import { ITouit } from './touit.model';
+import { IComment, ITouit } from './touit.model';
 import { TouitService } from './touit.service';
 
 @Component({
@@ -9,8 +10,11 @@ import { TouitService } from './touit.service';
   templateUrl: './touit.component.html',
   styleUrls: ['./touit.component.scss']
 })
-export class TouitComponent implements OnInit {
+export class TouitComponent implements OnInit, OnChanges {
   @Input() touit:ITouit
+  @Input() comment:IComment
+  @Input() inModal:boolean = false
+  @Output() openModalComment:EventEmitter<string>=new EventEmitter()
   avatar:any
   constructor(private touitService:TouitService, private userService:UserService,  private sanitizer:DomSanitizer) { }
 
@@ -19,6 +23,16 @@ export class TouitComponent implements OnInit {
       this.createImageFromBlob(avatar)
     })
     this.designHashTag()
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+      if(changes['touit'].currentValue !== changes['touit'].previousValue){
+        this.userService.getAvatar(this.touit.name).subscribe((avatar:any)=>{
+          this.createImageFromBlob(avatar)
+        })
+      }
+  }
+  openModal(){
+    this.openModalComment.emit(this.touit.id)
   }
 
   designHashTag(){
@@ -48,5 +62,22 @@ export class TouitComponent implements OnInit {
     if (image) {
        reader.readAsDataURL(image);
     }
- }
+  }
+
+  changeLike(){
+    if(this.touit.isLiked){
+      this.touitService.deleteLike(this.touit.id).subscribe(res=>{
+        console.log(res)
+        this.touit.isLiked = false
+        this.touit.likes--
+      })
+    }else{
+      this.touitService.addLike(this.touit.id).subscribe(res=>{
+        console.log(res)
+        this.touit.isLiked = true
+        this.touit.likes++
+
+      })
+    }
+  }
 }

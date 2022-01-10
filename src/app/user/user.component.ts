@@ -20,8 +20,8 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.connectForm = new FormGroup({
-      username:new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(8)])
+      username:new FormControl('Ponyo', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
+      password: new FormControl('jesuisunepatate', [Validators.required, Validators.minLength(8)])
     }
     )
   }

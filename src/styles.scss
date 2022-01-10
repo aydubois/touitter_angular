@@ -28,10 +28,13 @@
 .flex-between{
     justify-content: space-between;
 }
-
+.hide{
+    display: none !important;
+}
 body{
     background-color:var(--black);
     color:var(--color-txt-white);
+    position: relative;
 }
 
 
@@ -53,4 +56,6 @@ button{
 }
 button:hover{
     background-color: var(--green-hover);
+    cursor: pointer;
 }
+

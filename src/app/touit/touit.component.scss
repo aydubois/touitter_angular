@@ -2,6 +2,10 @@ article{
     width: 100%;
     padding: 1.5rem;
     border:1px solid var(--border-color); 
+    border-bottom: none;
+    &.noBorder{
+        border:none;
+    }
     .container-avatar{
         width: 10%;
         margin-right: 1.2rem;
@@ -10,16 +14,36 @@ article{
             border-radius: 50%;
             background-color: #00ba7ccf;
         }
+        hr{
+            border: none;
+            border-left: 1px solid var(--green);
+            height: 80%;
+            width: 1px;
+        }
     }
     .container-touit{
-        width: 80%;
-        img{
-            width: 20px;
-            filter: invert(93%) sepia(0%) saturate(513%) hue-rotate(318deg) brightness(93%) contrast(96%);
+        width: 100%;
+        h3 > span{
+            font-size: .7em;
+            color: var(--color-txt-grey);
         }
-        span{
-            color:var(--color-txt-grey);
-            font-size: .8em;
+        >div{
+            width: 50%;
+            margin:auto;
+            img{
+                width: 20px;
+                filter: invert(93%) sepia(0%) saturate(513%) hue-rotate(318deg) brightness(93%) contrast(96%);
+                margin-right: .5rem;
+                &:hover{
+                    filter: invert(58%) sepia(46%) saturate(5838%) hue-rotate(129deg) brightness(98%) contrast(101%);
+                    cursor: pointer;
+                }
+                isolation: isolate;
+            }
+            span{
+                color:var(--color-txt-grey);
+                font-size: .8em;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { IUser } from '../user/user.model';
 import { ITouit, ITouitResponse } from './touit.model';
 import { TouitService } from './touit.service';
 
@@ -9,8 +10,11 @@ import { TouitService } from './touit.service';
 })
 export class TouitListComponent implements OnInit, OnChanges {
   touits:ITouit[]
+  touit:ITouit
   @Input() reload:boolean
+  @Input() user:IUser
   @Output() reloadChange:EventEmitter<boolean> = new EventEmitter()
+ 
   constructor(private touitService:TouitService) { }
   ngOnInit(): void {
     this.getTouits()
@@ -28,9 +32,15 @@ export class TouitListComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes:SimpleChanges){
       console.log(changes)
-      if(changes['reload'].currentValue !== changes['reload'].previousValue &&changes['reload'].currentValue === true ){
+      if(changes['reload']?.currentValue !== changes['reload']?.previousValue &&changes['reload']?.currentValue === true ){
        this.getTouits()
       }
   }
-  
+
+  openModal(event:string){
+    this.touit = this.touits.filter(touit => touit.id === event)[0]
+    this.touitService.getComments(this.touit.id).subscribe(res=>{
+      this.touit.comments = res.comments
+    })
+  }
 }
