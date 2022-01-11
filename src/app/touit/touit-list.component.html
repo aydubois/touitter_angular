@@ -1,14 +1,9 @@
 <section>
     <ng-container *ngFor="let touit of touits">
-        <app-touit [touit]="touit" [user]="user" (reload)="isReload($event)" (openModalComment)="openModal($event)"></app-touit>
+        <app-touit [touit]="touit" (openModalComment)="openModal($event)"></app-touit>
     </ng-container>
 </section>
 <modal closeOnBodyClick="false" title="" elementId="addComment">
     <app-touit *ngIf="touit" [touit]="touit" [inModal]="true"></app-touit>
-    <app-write *ngIf="user && touit" [user]="user"  (reload)="reload = $event" [touitId]="touit.id" [placeholder]="'Touitte ta réponse'" [isTouit]="false"></app-write>
-    <!-- <ng-container *ngIf="touit && touit.comments">
-        <ng-container *ngFor="let comment of touit.comments">
-            <app-touit  [touit]="touit" [comment]="comment" [inModal]="true"></app-touit>
-        </ng-container>
-    </ng-container> -->
+    <app-write *ngIf="user && touit" [touitId]="touit.id" [placeholder]="'Touitte ta réponse'" [isTouit]="false"></app-write>
 </modal>

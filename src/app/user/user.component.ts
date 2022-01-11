@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { StateService } from '../common/state.service';
 import { IUser } from './user.model';
 import { UserService } from './user.service';
 
@@ -15,8 +16,8 @@ export class UserComponent implements OnInit {
   messageRegister:string
   user:IUser 
 
-  @Output() getUser:EventEmitter<IUser> = new EventEmitter()
-  constructor(private userService:UserService) { }
+  // @Output() getUser:EventEmitter<IUser> = new EventEmitter()
+  constructor(private userService:UserService, private stateService:StateService) { }
 
   ngOnInit(): void {
     this.connectForm = new FormGroup({
@@ -34,8 +35,8 @@ export class UserComponent implements OnInit {
         access_token:res?.access_token
       }
       this.errorMessage = ""
-
-      this.getUser.emit(this.user)
+      this.stateService.updateUser(this.user)
+      // this.getUser.emit(this.user)
     },
     (err:HttpErrorResponse)=>{
       if(err?.error?.error === "Bad username or password !"){

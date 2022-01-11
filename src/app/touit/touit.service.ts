@@ -25,10 +25,10 @@ export class TouitService{
             .pipe(catchError(this.handleError<ITouitResponse>('getTouits')))
     }
 
-    getTouit(touitId:string):Observable<Object>{
+    getTouit(touitId:string):Observable<{success:boolean, data:ITouit}>{
       let params = new HttpParams().set("id", touitId)
-      return this.http.get<ITouitResponse>(this.urlApi+'/get', {params:params})
-      .pipe(catchError(this.handleError<ITouitResponse>('getTouit')))
+      return this.http.get<{success:boolean, data:ITouit}>(this.urlApi+'/get', {params:params})
+      .pipe(catchError(this.handleError<{success:boolean, data:ITouit}>('getTouit')))
     }
 
     

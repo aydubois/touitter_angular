@@ -15,6 +15,7 @@ import { UserService } from './user/user.service';
 import { ModalComponent } from './common/modal.component';
 import { ModalTriggerCloseDirective, ModalTriggerDirective } from './common/modal-trigger.directive';
 import { TrendService } from './common/trend.service';
+import { StateService } from './common/state.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { TrendService } from './common/trend.service';
     ReactiveFormsModule,
     FormsModule,
   ],
-  providers: [TouitService, UserService, TrendService],
+  providers: [TouitService, UserService, TrendService, StateService],
   bootstrap: [HomeComponent]
 })
 export class AppModule { }

@@ -1,6 +1,6 @@
 <section class="flex-row"  [ngClass]="!isTouit ? 'noBorder':''">
     <div class="container-avatar">
-        <img src="{{user?.avatar}}"/>
+        <img src="{{user?.avatar?.avatar}}"/>
     </div>
     <div class="container-write">
         <em class="error" *ngIf="formTouit.invalid && formTouit.dirty">Le touit de comprendre entre 3 et 256 caractères.</em>

@@ -1,6 +1,6 @@
 <article class="flex-row" [ngClass]="inModal ? 'noBorder':''">
     <div class="container-avatar">
-       <img src="{{avatar}}"/>
+       <img src="{{avatar?.avatar}}"/>
        <hr *ngIf="inModal"/>
     </div>
     <div class="container-touit" *ngIf="!comment">
