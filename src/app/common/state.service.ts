@@ -14,17 +14,21 @@ export class StateService{
     touits:BehaviorSubject<ITouit[]> = new BehaviorSubject(<ITouit[]>[])
     avatars:BehaviorSubject<IAvatar[]> = new BehaviorSubject(<IAvatar[]>[])
     constructor(private httpClient : HttpClient, private touitService:TouitService){
-        this.getTouits()
-        setInterval(()=>{
-            this.getTouits()
-        },120_000) // reload tous les 2 min
-    }
-    getTouits(){
-        this.touitService.getTouits().subscribe((touits:ITouitResponse)=>{
-            let tt:ITouit[] = touits.messages.sort((x,y) =>{return y.ts - x.ts})
-            tt = tt.slice(0,10)
-            this.updateTouits(tt)
+        this.touitService.getTouits().subscribe((touits:ITouit[])=>{
+            this.updateTouits(touits)
         })
+        setInterval(()=>{
+            this.touitService.getTouits().subscribe((touits:ITouit[])=>{
+                this.updateTouits(touits)
+            })
+        },120_000) // reload tous les 2 min
+        setInterval(()=>{
+            console.log("pagination into stateservice " + this.touitService.pagination)
+
+        },2000)
+    }
+    updatePagination(pagination:number){
+        this.touitService.setPaginationUp(pagination) // TODO : Check why 2 instance of touitService
     }
 
     updateUser(user:IUser){

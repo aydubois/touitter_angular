@@ -7,20 +7,28 @@ import { TouitService } from './touit.service';
 @Component({
   selector: 'app-touit-list',
   templateUrl: './touit-list.component.html',
-  styleUrls: ['./touit-list.component.scss']
+  styleUrls: ['./touit-list.component.scss'],
+  providers:[TouitService]
 })
 export class TouitListComponent implements OnInit {
   touits:ITouit[]
   touit:ITouit
-  @Input() reload:boolean
-  @Input() user:IUser
-  @Output() reloadChange:EventEmitter<boolean> = new EventEmitter()
+  user:IUser
+  //@Output() reloadChange:EventEmitter<boolean> = new EventEmitter()
  
   constructor(private touitService:TouitService, private stateService:StateService) { }
   ngOnInit(): void {
-    this.stateService.touits.subscribe((touits:ITouit[]) =>{this.touits = touits})
+    this.stateService.touits.subscribe((touits:ITouit[]) =>{
+      console.log("reload touit", touits)
+      this.touits = touits
+    })
     this.stateService.user.subscribe((user:IUser) =>{this.user = user})
-    // this.getTouits()
+    this.getTouits()
+  }
+  getTouits(){
+    this.touitService.getTouits().subscribe((touits:ITouit[])=>{
+      this.stateService.updateTouits(touits)
+    })
   }
   // getTouits(){
   //   this.touitService.getTouits().subscribe((touits:ITouitResponse)=>{
@@ -51,5 +59,9 @@ export class TouitListComponent implements OnInit {
     this.touitService.getComments(this.touit.id).subscribe(res=>{
       this.touit.comments = res.comments
     })
+  }
+
+  identity(index:number,item:ITouit){
+    return item.id
   }
 }

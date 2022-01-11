@@ -16,6 +16,7 @@ import { ModalComponent } from './common/modal.component';
 import { ModalTriggerCloseDirective, ModalTriggerDirective } from './common/modal-trigger.directive';
 import { TrendService } from './common/trend.service';
 import { StateService } from './common/state.service';
+import { InfiniteScrollDirective } from './common/infinite-scroll.directive';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { StateService } from './common/state.service';
     ModalComponent,
     ModalTriggerDirective,
     ModalTriggerCloseDirective,
+    InfiniteScrollDirective
   ],
   imports: [
     BrowserModule, 
@@ -36,7 +38,7 @@ import { StateService } from './common/state.service';
     ReactiveFormsModule,
     FormsModule,
   ],
-  providers: [TouitService, UserService, TrendService, StateService],
+  providers: [StateService,TouitService, UserService, TrendService],
   bootstrap: [HomeComponent]
 })
 export class AppModule { }

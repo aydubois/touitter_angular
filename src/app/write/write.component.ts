@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IAvatar } from '../common/avatar.model';
 import { StateService } from '../common/state.service';
-import { IComment, ITouit } from '../touit/touit.model';
+import { IComment, ITouit, ITouitResponse } from '../touit/touit.model';
 import { TouitService } from '../touit/touit.service';
 import { IUser } from '../user/user.model';
 import { UserService } from '../user/user.service';
@@ -68,8 +68,10 @@ export class WriteComponent implements OnInit {
   sendTouit(message:string){
     if(this.isTouit){
       this.touitService.sendTouit(this.user.access_token, message).subscribe(res=>{
-        this.reload.emit(true)
+        //this.reload.emit(true)
         this.formTouit['controls']['message'].setValue('')
+        this.updateTouits()
+      
       })
     }else{
       let comment:IComment={
@@ -77,10 +79,14 @@ export class WriteComponent implements OnInit {
         comment:message
       }
       this.touitService.sendComment(this.touitId,comment).subscribe(res=>{
-        this.reload.emit(true)
+        //this.reload.emit(true)
         this.formTouit['controls']['message'].setValue('')
+        this.updateTouits()
       })
     }
+  }
+  updateTouits(){
+    this.touitService.getTouits().subscribe((touits:ITouit[])=>{this.stateService.updateTouits(touits)})
   }
 
 }

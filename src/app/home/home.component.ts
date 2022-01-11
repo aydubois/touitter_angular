@@ -10,7 +10,7 @@ import { IUser } from '../user/user.model';
 export class HomeComponent implements OnInit {
   isConnected:boolean=false
   user:IUser
-  reload:boolean=false
+  //reload:boolean=false
   constructor(private stateService:StateService) { }
 
   ngOnInit(): void {

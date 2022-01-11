@@ -1,5 +1,5 @@
-<section>
-    <ng-container *ngFor="let touit of touits">
+<section id="blah" infinite-scroll >
+    <ng-container *ngFor="let touit of touits;trackBy:identity" >
         <app-touit [touit]="touit" (openModalComment)="openModal($event)"></app-touit>
     </ng-container>
 </section>

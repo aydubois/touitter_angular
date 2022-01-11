@@ -5,7 +5,7 @@ import { IAvatar } from '../common/avatar.model';
 import { StateService } from '../common/state.service';
 import { IUser } from '../user/user.model';
 import { UserService } from '../user/user.service';
-import { IComment, ITouit } from './touit.model';
+import { IComment, ITouit, ITouitResponse } from './touit.model';
 import { TouitService } from './touit.service';
 
 @Component({
@@ -124,6 +124,7 @@ export class TouitComponent implements OnInit, OnChanges {
       this.touitService.sendTouit(this.user.access_token, message).subscribe(res=>{
         //this.reload.emit(true)
         console.log("retwouit", res)
+        this.touitService.getTouits().subscribe((touits:ITouit[])=>{this.stateService.updateTouits(touits)})
       })
     }
   }

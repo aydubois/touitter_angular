@@ -1,15 +1,16 @@
-import { Injectable } from "@angular/core";
-import { catchError, Observable, of } from "rxjs";
+import { Inject, Injectable } from "@angular/core";
+import { catchError, Observable, of, map } from "rxjs";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { IComment, ITouit, ITouitResponse } from "./touit.model";
 import { environment } from "src/environments/environment";
+import { StateService } from "../common/state.service";
 
-@Injectable()
+@Injectable({providedIn:'root'})
 export class TouitService{
     urlApi:string = environment.baseUrlApi
     authoriz:string = environment.authoriz
     httpHeaders:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-
+    pagination:number=15
     //allTouits:ITouit[] 
     constructor(private http:HttpClient){}
 
@@ -20,9 +21,23 @@ export class TouitService{
       }
     }
     
-    getTouits():Observable<ITouitResponse>{
+    setPaginationUp(pagination:number){
+      this.pagination=pagination
+    }
+    getTouits():Observable<ITouit[]>{
+      //TODO : supp subscrib et mettre map a la place 
+      // TODO : remettre les getTouits dans les component
         return this.http.get<ITouitResponse>(this.urlApi+'/list')
-            .pipe(catchError(this.handleError<ITouitResponse>('getTouits')))
+            .pipe(
+              map((res:ITouitResponse)=>{
+              let tt:ITouit[] = res.messages.sort((x,y) =>{return y.ts - x.ts})
+              if(this.pagination < res.messages.length){
+                tt =  tt.slice(0,this.pagination)
+              }
+              return tt
+              //this.stateService.updateTouits(tt)
+            })
+          )
     }
 
     getTouit(touitId:string):Observable<{success:boolean, data:ITouit}>{
