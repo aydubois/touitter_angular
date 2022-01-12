@@ -1,0 +1,19 @@
+div{
+    width: 350px;
+    background-color: var(--black);
+    margin-right: auto;
+    position: fixed;
+    top: 0;
+    padding: 0.5rem 0;
+}
+input{
+    width: 100%;
+    background-color: var(--grey);
+    border: 1px solid black;
+    border-radius: 30px;
+    padding: 1rem;
+    color: var(--color-txt-white);
+    &:focus{
+        outline: 2px solid var(--green);
+    }
+}

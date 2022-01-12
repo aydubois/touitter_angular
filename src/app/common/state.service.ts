@@ -13,19 +13,18 @@ export class StateService{
     user:BehaviorSubject<IUser> = new BehaviorSubject(<IUser>{})
     touits:BehaviorSubject<ITouit[]> = new BehaviorSubject(<ITouit[]>[])
     avatars:BehaviorSubject<IAvatar[]> = new BehaviorSubject(<IAvatar[]>[])
+    onGoingSearch:boolean=false
     constructor(private httpClient : HttpClient, private touitService:TouitService){
         this.touitService.getTouits().subscribe((touits:ITouit[])=>{
             this.updateTouits(touits)
         })
         setInterval(()=>{
-            this.touitService.getTouits().subscribe((touits:ITouit[])=>{
-                this.updateTouits(touits)
-            })
+            if(window.scrollY <= 100 && !this.onGoingSearch){ // check only if scroll is up
+                this.touitService.getTouits().subscribe((touits:ITouit[])=>{
+                    this.updateTouits(touits)
+                })
+            }
         },120_000) // reload tous les 2 min
-        setInterval(()=>{
-            console.log("pagination into stateservice " + this.touitService.pagination)
-
-        },2000)
     }
     updatePagination(pagination:number){
         this.touitService.setPaginationUp(pagination) // TODO : Check why 2 instance of touitService
@@ -39,7 +38,9 @@ export class StateService{
         this.touits.next(touits)
     }
     updateAvatars(avatars:IAvatar[]){
-        console.log(avatars)
         this.avatars.next(avatars)
+    }
+    updateOnGoingSearch(bool:boolean){
+        this.onGoingSearch = bool
     }
 }

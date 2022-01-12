@@ -1,0 +1,11 @@
+<article>
+    <h2>Tendances</h2>
+    <div class="one-trend" (click)="search(word)" *ngFor="let word of wordTrendy;let index = index;">
+        <h3>{{word.word}}</h3>
+        <p>{{word.number}} apparitions</p>
+        <p *ngIf="index === 1" class="sponsor"><img src="assets/sponsor.png"/>Sponsorisé par {{trollSponsor}}</p>
+    </div>
+    <div class="one-trend">
+        <button class="see-more" (click)="seeMore()">Voir plus</button>
+    </div>
+</article>

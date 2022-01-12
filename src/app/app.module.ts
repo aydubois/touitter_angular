@@ -17,6 +17,8 @@ import { ModalTriggerCloseDirective, ModalTriggerDirective } from './common/moda
 import { TrendService } from './common/trend.service';
 import { StateService } from './common/state.service';
 import { InfiniteScrollDirective } from './common/infinite-scroll.directive';
+import { SearchBarComponent } from './search/search-bar/search-bar.component';
+import { TrendyTouitComponent } from './trendy/trendy-touit/trendy-touit.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { InfiniteScrollDirective } from './common/infinite-scroll.directive';
     ModalComponent,
     ModalTriggerDirective,
     ModalTriggerCloseDirective,
-    InfiniteScrollDirective
+    InfiniteScrollDirective,
+    SearchBarComponent,
+    TrendyTouitComponent
   ],
   imports: [
     BrowserModule, 

@@ -1,5 +1,25 @@
-
+.container-empty{
+    border: 1px solid var(--border-color);
+    border-bottom: none;
+    height: 100vh;
+    text-align: center;
+}
 aside.oups{
+    margin-top:3rem;
     width: 350px;
-    height: 100%;
+    height: 100vh;
+    &:last-child{
+        margin-left: 1rem;
+    }
+    &:first-child{
+        margin-right: 1rem;
+    }
+}
+
+.color-grey{
+    color: var(--color-txt-grey);
+}
+.warning{
+    font-weight: 900;
+    cursor: pointer;
 }

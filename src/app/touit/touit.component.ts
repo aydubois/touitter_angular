@@ -54,7 +54,6 @@ export class TouitComponent implements OnInit, OnChanges {
   designHashTag(){
     if(this.touit.message.includes("#")){
       let msg = this.touit.message.split("#")
-      console.log(msg)
 
       if(this.touit.message[0] === "#"){
         msg[0] = '<span class="hashtag">#'+msg[0]+"</span>"
@@ -93,13 +92,11 @@ export class TouitComponent implements OnInit, OnChanges {
   changeLike(){
     if(this.touit.isLiked){
       this.touitService.deleteLike(this.touit.id).subscribe(res=>{
-        console.log(res)
         this.touit.isLiked = false
         this.touit.likes--
       })
     }else{
       this.touitService.addLike(this.touit.id).subscribe(res=>{
-        console.log(res)
         this.touit.isLiked = true
         this.touit.likes++
 
@@ -120,10 +117,8 @@ export class TouitComponent implements OnInit, OnChanges {
     if(this.user){
       let message = this.messageOriginal || this.touit.message
       message = "@"+this.user.username+" a retwouitté un touit de @"+this.touit.name+": \n "+message
-      console.log(message)
       this.touitService.sendTouit(this.user.access_token, message).subscribe(res=>{
-        //this.reload.emit(true)
-        console.log("retwouit", res)
+
         this.touitService.getTouits().subscribe((touits:ITouit[])=>{this.stateService.updateTouits(touits)})
       })
     }

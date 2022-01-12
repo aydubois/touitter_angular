@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { IComment, ITouit, ITouitResponse } from "./touit.model";
 import { environment } from "src/environments/environment";
 import { StateService } from "../common/state.service";
+import { IWordTrendy } from "../trendy/trendy-touit/word-trendy.model";
 
 @Injectable({providedIn:'root'})
 export class TouitService{
@@ -25,8 +26,6 @@ export class TouitService{
       this.pagination=pagination
     }
     getTouits():Observable<ITouit[]>{
-      //TODO : supp subscrib et mettre map a la place 
-      // TODO : remettre les getTouits dans les component
         return this.http.get<ITouitResponse>(this.urlApi+'/list')
             .pipe(
               map((res:ITouitResponse)=>{
@@ -35,11 +34,44 @@ export class TouitService{
                 tt =  tt.slice(0,this.pagination)
               }
               return tt
-              //this.stateService.updateTouits(tt)
             })
           )
     }
+    getTrollName(word:IWordTrendy):Observable<string>{ //nom de la personne ayant le + touitter le 2eme mot en tendance
+      return this.http.get<ITouitResponse>(this.urlApi+'/list')
+          .pipe(
+            map((res:ITouitResponse)=>{
+            let tt:ITouit[] = res.messages.sort((x,y) =>{return y.ts - x.ts})
+            
+            //Recherche de tous les touits avec le mot tendance
+            tt = tt.filter((touit:ITouit)=>{
+              return touit.message.includes(word.word)
+             })
 
+            //Compteur des auteurs des touits
+             let counts = tt.reduce((p:any, c) => {
+               var name = c.name;
+               if (!p.hasOwnProperty(name)) {
+                 p[name] = 0;
+               }
+               p[name]++;
+               return p;
+             }, {});
+
+            // Recupération de l'auteur le plus troll
+            let nameTroll:string
+            let best:number = 1
+            for(let data in counts){
+              if(counts[data] > best){
+                best = counts[data]
+                nameTroll = data
+              }
+            }
+
+            return nameTroll
+          })
+        )
+  }
     getTouit(touitId:string):Observable<{success:boolean, data:ITouit}>{
       let params = new HttpParams().set("id", touitId)
       return this.http.get<{success:boolean, data:ITouit}>(this.urlApi+'/get', {params:params})
@@ -80,4 +112,20 @@ export class TouitService{
       body.set('message_id', touitId)
       return this.http.delete<Object>(this.urlApi+"/likes/remove",{body: body.toString(), headers:this.httpHeaders})
     }
+
+
+    search(searchWorld:string):Observable<ITouit[]>{
+      this.pagination = 30
+      return this.http.get<ITouitResponse>(this.urlApi+'/list')
+          .pipe(
+            map((res:ITouitResponse)=>{
+            let tt:ITouit[] = res.messages.sort((x,y) =>{return y.ts - x.ts})
+            tt = tt.filter((touit:ITouit)=>{return touit.name.toUpperCase() === searchWorld.toUpperCase() || touit.message.toUpperCase().includes(searchWorld.toUpperCase())})
+            if(this.pagination < res.messages.length){
+              tt =  tt.slice(0,this.pagination)
+            }
+            return tt
+          })
+        )
+  }
 }

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentRef, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { StateService } from '../common/state.service';
+import { ITouit } from '../touit/touit.model';
+import { TouitService } from '../touit/touit.service';
 import { IUser } from '../user/user.model';
 
 @Component({
@@ -10,8 +12,9 @@ import { IUser } from '../user/user.model';
 export class HomeComponent implements OnInit {
   isConnected:boolean=false
   user:IUser
-  //reload:boolean=false
-  constructor(private stateService:StateService) { }
+  emptySearch:string=""
+
+  constructor(private stateService:StateService,private touitService:TouitService) { }
 
   ngOnInit(): void {
     this.stateService.user.subscribe((user:IUser) =>{
@@ -23,12 +26,16 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  // getUser(event:IUser){
-  //   this.stateService.updateUser(event)
-  //   this.isConnected = true
-  // }
+  isEmptySearch(searchWorld:string){
+    console.log("isEmptySearch")
+    this.emptySearch = searchWorld
+  }
 
-  // reloadChange(event:boolean){
-  //   this.reload =event
-  // }
+  resetSearch(){
+    
+    this.emptySearch = ""
+    this.touitService.getTouits().subscribe((touits:ITouit[])=>{
+      this.stateService.updateTouits(touits)
+    })
+  }
 }

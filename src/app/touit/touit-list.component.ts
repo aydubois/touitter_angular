@@ -19,7 +19,6 @@ export class TouitListComponent implements OnInit {
   constructor(private touitService:TouitService, private stateService:StateService) { }
   ngOnInit(): void {
     this.stateService.touits.subscribe((touits:ITouit[]) =>{
-      console.log("reload touit", touits)
       this.touits = touits
     })
     this.stateService.user.subscribe((user:IUser) =>{this.user = user})
@@ -30,29 +29,6 @@ export class TouitListComponent implements OnInit {
       this.stateService.updateTouits(touits)
     })
   }
-  // getTouits(){
-  //   this.touitService.getTouits().subscribe((touits:ITouitResponse)=>{
-  //     this.touits = []
-  //     for (let i = 0; i < 10; i++) {
-  //       const element = touits.messages[touits.messages.length-1-i];
-  //       this.touits.push(element)
-  //     }
-  //     console.log("get touit")
-  //     this.reload = false
-  //     this.reloadChange.emit(false)
-  //   })
-  // }
-  // isReload(event:boolean){
-  //   this.reload = event
-  //   this.getTouits()
-  // }
-  // ngOnChanges(changes:SimpleChanges){
-  //     console.log(changes)
-  //     if(changes['reload']?.currentValue !== changes['reload']?.previousValue &&changes['reload']?.currentValue === true ){
-  //       console.log("reload after retouit")
-  //      this.getTouits()
-  //     }
-  // }
 
   openModal(event:string){
     this.touit = this.touits.filter(touit => touit.id === event)[0]

@@ -69,7 +69,7 @@ export class WriteComponent implements OnInit {
     if(this.isTouit){
       this.touitService.sendTouit(this.user.access_token, message).subscribe(res=>{
         //this.reload.emit(true)
-        this.formTouit['controls']['message'].setValue('')
+        this.formTouit.reset()
         this.updateTouits()
       
       })
@@ -80,7 +80,7 @@ export class WriteComponent implements OnInit {
       }
       this.touitService.sendComment(this.touitId,comment).subscribe(res=>{
         //this.reload.emit(true)
-        this.formTouit['controls']['message'].setValue('')
+        this.formTouit.reset()
         this.updateTouits()
       })
     }
