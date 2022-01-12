@@ -50,12 +50,12 @@ export class InfiniteScrollDirective implements OnInit{
        
         
         //console.log(childMinusFive)
-        const rect = this.currentChildFive.getBoundingClientRect();
+        const rect = this.currentChildFive?.getBoundingClientRect();
         return (
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            rect?.top >= 0 &&
+            rect?.left >= 0 &&
+            rect?.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect?.right <= (window.innerWidth || document.documentElement.clientWidth)
     
         );
     }

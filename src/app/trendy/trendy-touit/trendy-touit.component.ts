@@ -40,6 +40,7 @@ export class TrendyTouitComponent implements OnInit {
 
   search(word:IWordTrendy){
     this.touitService.search(word.word).subscribe((touits:ITouit[])=>{
+      this.stateService.updateOnGoingSearch(true)
       this.stateService.updateTouits(touits)
     })
   }
