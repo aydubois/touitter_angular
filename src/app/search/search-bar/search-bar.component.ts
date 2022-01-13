@@ -8,23 +8,17 @@ import { TouitService } from 'src/app/touit/touit.service';
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.scss']
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent {
   @Output() isEmptySearch:EventEmitter<string> = new EventEmitter<string>()
   @ViewChild('searchBar') searchBar:ElementRef
   constructor(private stateService:StateService, private touitService:TouitService) { }
 
-  ngOnInit(): void {
-  }
-  reset(){
-    this.searchBar.nativeElement.value = ""
-  }
   sendSearch(searchWords:string){
-    this.stateService.updateOnGoingSearch(true)
+    this.stateService.updateSearch(searchWords)
     this.touitService.search(searchWords).subscribe((touits:ITouit[])=>{
       this.stateService.updateTouits(touits)
-      if(touits.length === 0)
-        this.isEmptySearch.emit(searchWords)
-
+      this.stateService.updateSearch(searchWords)
+      this.searchBar.nativeElement.value = ""
     })
   }
 }

@@ -1,7 +1,7 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { IAvatar } from '../common/avatar.model';
+import { IAvatar } from '../avatar/avatar.model';
 import { StateService } from '../common/state.service';
 import { IUser } from '../user/user.model';
 import { UserService } from '../user/user.service';
@@ -16,21 +16,18 @@ import { TouitService } from './touit.service';
 export class TouitComponent implements OnInit, OnChanges {
 
   messageOriginal:string
+  @Output() seeMoreTouit: EventEmitter<ITouit>=new EventEmitter()
   @Input() touit:ITouit
-  //@Input() user:IUser
   user:IUser
-  @Input() comment:IComment
   @Input() inModal:boolean = false
   @Output() openModalComment:EventEmitter<string>=new EventEmitter()
   avatar:IAvatar
-  //@Output() reload:EventEmitter<boolean> = new EventEmitter()
 
   constructor(private touitService:TouitService, private userService:UserService, private stateService:StateService, private sanitizer:DomSanitizer) { }
 
   ngOnInit(): void {
     this.stateService.user.subscribe((user:IUser)=>{this.user = user})
     this.getAvatar()
-    this.designHashTag()
   }
   ngOnChanges(changes: SimpleChanges): void {
       if(changes?.['touit']?.currentValue !== changes?.['touit']?.previousValue){
@@ -49,22 +46,6 @@ export class TouitComponent implements OnInit, OnChanges {
   }
   openModal(){
     this.openModalComment.emit(this.touit.id)
-  }
-
-  designHashTag(){
-    if(this.touit.message.includes("#")){
-      let msg = this.touit.message.split("#")
-
-      if(this.touit.message[0] === "#"){
-        msg[0] = '<span class="hashtag">#'+msg[0]+"</span>"
-      }
-      for (let i = 1; i < msg.length; i++) {
-        msg[i] = '<span class="hashtag">#'+msg[i]+"</span>"
-      }
-      this.messageOriginal = this.touit.message
-      this.touit.message = msg.join(" ")
-      
-    }
   }
 
   createImageFromBlob(image: Blob) {
@@ -122,5 +103,11 @@ export class TouitComponent implements OnInit, OnChanges {
         this.touitService.getTouits().subscribe((touits:ITouit[])=>{this.stateService.updateTouits(touits)})
       })
     }
+  }
+
+  seeMore(){
+    console.log("pouet")
+    this.seeMoreTouit.emit(this.touit)
+
   }
 }

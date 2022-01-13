@@ -19,6 +19,7 @@ import { StateService } from './common/state.service';
 import { InfiniteScrollDirective } from './common/infinite-scroll.directive';
 import { SearchBarComponent } from './search/search-bar/search-bar.component';
 import { TrendyTouitComponent } from './trendy/trendy-touit/trendy-touit.component';
+import { TouitCommentsComponent } from './touit/touit-comments/touit-comments.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { TrendyTouitComponent } from './trendy/trendy-touit/trendy-touit.compone
     ModalTriggerCloseDirective,
     InfiniteScrollDirective,
     SearchBarComponent,
-    TrendyTouitComponent
+    TrendyTouitComponent,
+    TouitCommentsComponent
   ],
   imports: [
     BrowserModule, 

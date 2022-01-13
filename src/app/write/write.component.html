@@ -4,7 +4,7 @@
     </div>
     <div class="container-write">
         <em class="error" *ngIf="formTouit.invalid && formTouit.dirty">Le touit de comprendre entre 3 et 256 caractères.</em>
-        <form [formGroup]="formTouit">
+        <form [formGroup]="formTouit" [ngClass]="styleForm === 'flex' ? 'flex-row flex-center' : ''">
             <textarea rows="3" formControlName="message" [placeholder]="placeholder"></textarea>
             <button *ngIf="isTouit" (click)="sendTouit(formTouit?.value?.message)">Touitter</button>
             <button *ngIf="!isTouit" modal-close="addComment" (click)="sendTouit(formTouit?.value?.message)">Touitter</button>

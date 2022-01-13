@@ -14,7 +14,7 @@ export class TrendService{
     getMostUsedTerms():Observable<IWordTrendy[]>{
         return this.http.get<any>(this.urlApi+'/trending').pipe(
             map((res:any)=>{
-                console.log(typeof res)
+                //
                 let wordTrendy:IWordTrendy[] = []
                 for(let key in res){
                     wordTrendy.push({

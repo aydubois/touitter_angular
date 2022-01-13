@@ -1,1 +1,11 @@
-<p>comment works!</p>
+<article class="flex-row" >
+    <div class="container-avatar">
+        <hr *ngIf="first" class="inverse"/>
+       <img src="{{avatar?.avatar}}"/>
+       <hr *ngIf="!last"/>
+    </div>
+    <div class="container-touit">
+        <h3>{{comment.name}} - <span>{{comment.ts  | date:'dd/MM/yyyy HH:mm'}}</span></h3>
+        <p>{{comment.comment}}</p>
+    </div>
+</article>

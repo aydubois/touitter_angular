@@ -12,30 +12,25 @@ import { IUser } from '../user/user.model';
 export class HomeComponent implements OnInit {
   isConnected:boolean=false
   user:IUser
-  emptySearch:string=""
-
+  search:string=""
   constructor(private stateService:StateService,private touitService:TouitService) { }
 
   ngOnInit(): void {
     this.stateService.user.subscribe((user:IUser) =>{
-      console.log(user)
-      if(user?.username){
-        this.user=user
+      if(user?.username)
         this.isConnected = true
-      }
+      else
+        this.isConnected = false
+      this.user=user
+      console.log(this)
+    })
+
+    this.stateService.search.subscribe((search:string)=>{
+      this.search = search
     })
   }
 
-  isEmptySearch(searchWorld:string){
-    console.log("isEmptySearch")
-    this.emptySearch = searchWorld
-  }
-
-  resetSearch(){
-    
-    this.emptySearch = ""
-    this.touitService.getTouits().subscribe((touits:ITouit[])=>{
-      this.stateService.updateTouits(touits)
-    })
+  goTop(){
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 }

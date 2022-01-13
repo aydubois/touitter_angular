@@ -2,25 +2,22 @@
     <aside class="oups">
         <p>TODO</p>
         <ul>
-            <li>Supp. Double instance service</li>
-            <li>Ajout. wordSearch => stateService</li>
-            <li>Ajout. section "commentaires" => click touit</li>
+            <!-- <li>Supp. Double instance service</li> -->
+            <!-- <li>Ajout. wordSearch => stateService</li>
+            <li>Ajout. section "commentaires" => click touit</li> -->
             <li>Ajout. section "suggestion" => influenceurs</li>
+            <!-- <li>Ancre "retour en haut"</li> -->
+            <li>Ancre - profil</li>
         </ul>
     </aside>
     <div>
         <app-user *ngIf="!isConnected" ></app-user>
         <app-write *ngIf="isConnected" [placeholder]="'Quoi de neuf ?'" [isTouit]="true"></app-write>
-        <app-touit-list *ngIf="!emptySearch || emptySearch.length === 0" ></app-touit-list>
-        <section *ngIf="emptySearch && emptySearch.length > 0" class="container-empty">
-            <h3 class="error" >Aucun Résultat pour "{{emptySearch}}"</h3>
-            <p class="color-grey"> Aucun résultat n'a été trouvé pour le terme que vous avez saisi. 
-                Vous avez peut-être fait une faute de frappe.</p>
-            <p class="color-grey">Cliquer <span class="warning" (click)="resetSearch()">ici</span> pour revenir sur le fil principal</p>
-        </section>
+        <app-touit-list></app-touit-list>
     </div>
     <aside class="oups">
-        <app-search-bar (isEmptySearch)="isEmptySearch($event);search.reset()" #search></app-search-bar>
+        <app-search-bar></app-search-bar>
         <app-trendy-touit></app-trendy-touit>
     </aside>
 </main>
+<div class="go-top" (click)="goTop()">⬆<span>en haut</span></div>

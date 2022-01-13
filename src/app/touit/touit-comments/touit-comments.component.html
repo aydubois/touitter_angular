@@ -1,0 +1,9 @@
+<div class="go-back" (click)="goBack()"><p>⬅</p></div>
+<app-touit [touit]="touit" ></app-touit>
+<hr>
+<app-write *ngIf="user?.username && touit" [touitId]="touit.id" [placeholder]="'Touitte ta réponse'" [isTouit]="false" styleForm="flex"></app-write>
+<ng-container *ngFor="let comment of touit.comments;let index = index">
+    <app-comment [comment]="comment" [first]="index === 0" [last]="index === touit.comments.length-1"></app-comment>
+</ng-container>
+<hr>
+

@@ -1,4 +1,4 @@
-import { IAvatar } from "../common/avatar.model";
+import { IAvatar } from "../avatar/avatar.model";
 
 export interface IUser{
     username:string, // 3 à 16 caractères

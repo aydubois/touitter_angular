@@ -1,6 +1,6 @@
 <article>
     <h2>Tendances</h2>
-    <div class="one-trend" (click)="search(word)" *ngFor="let word of wordTrendy;let index = index;">
+    <div class="one-trend" (click)="search(word)" *ngFor="let word of wordTrendy;let index = index;trackBy:identity">
         <h3>{{word.word}}</h3>
         <p>{{word.number}} apparitions</p>
         <p *ngIf="index === 1" class="sponsor"><img src="assets/sponsor.png"/>Sponsorisé par {{trollSponsor}}</p>

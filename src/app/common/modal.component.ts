@@ -63,21 +63,10 @@ export class ModalComponent implements AfterViewInit{
         let modal = document.querySelector('modal')
         modal.addEventListener('click', ()=>{
             if(!this.containerEl.nativeElement.hidden){
-                console.log("plop")
                 this.closeModal(true)
             }
         })
-        // modal.addEventListener("click", (_evt:MouseEvent) => {
-        //     console.log(this.containerEl.nativeElement.hidden)
-
-        //     if(!this.containerEl.nativeElement.hidden){
-        //         console.log("plop")
-        //         this.closeModal(true)
-        //     }
-        // })
         this.dialogEl.nativeElement.addEventListener("click", (evt:MouseEvent) => {
-            console.log("blah")
-
             evt.stopPropagation()
         })
           

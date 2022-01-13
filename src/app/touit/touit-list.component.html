@@ -1,9 +1,19 @@
-<section id="blah" infinite-scroll >
+<section id="blah" infinite-scroll *ngIf="touits?.length > 0 && !seeMore">
+    <div class="go-back" (click)="resetSearch()" *ngIf="search.length > 0"><p>⬅</p></div>
     <ng-container *ngFor="let touit of touits;trackBy:identity" >
-        <app-touit [touit]="touit" (openModalComment)="openModal($event)"></app-touit>
+        <app-touit [touit]="touit" (seeMoreTouit)="seeMoreTouit($event)" (openModalComment)="openModal($event)"></app-touit>
     </ng-container>
+</section>
+<section *ngIf="(!touits || touits.length === 0 ) && search.length > 0 && !seeMore" class="container-empty">
+    <h3 class="error-empty" >Aucun Résultat pour "{{search}}"</h3>
+    <p class="color-grey"> Aucun résultat n'a été trouvé pour le terme que vous avez saisi. 
+        Vous avez peut-être fait une faute de frappe.</p>
+    <p class="color-grey">Cliquer <span class="warning" (click)="resetSearch()">ici</span> pour revenir sur le fil principal</p>
+</section>
+<section *ngIf="seeMore">
+    <app-touit-comments [touit]="touit" (stopSeeMore)="stopSeeMore($event)"></app-touit-comments>
 </section>
 <modal closeOnBodyClick="false" title="" elementId="addComment">
     <app-touit *ngIf="touit" [touit]="touit" [inModal]="true"></app-touit>
-    <app-write *ngIf="user && touit" [touitId]="touit.id" [placeholder]="'Touitte ta réponse'" [isTouit]="false"></app-write>
+    <app-write *ngIf="user?.username && touit" [touitId]="touit.id" [placeholder]="'Touitte ta réponse'" [isTouit]="false"></app-write>
 </modal>

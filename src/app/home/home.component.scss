@@ -1,12 +1,7 @@
 main{
     justify-content: center;
 }
-.container-empty{
-    border: 1px solid var(--border-color);
-    border-bottom: none;
-    height: 100vh;
-    text-align: center;
-}
+
 aside.oups{
     margin-top:3rem;
     width: 350px;
@@ -19,10 +14,13 @@ aside.oups{
     }
 }
 
-.color-grey{
-    color: var(--color-txt-grey);
-}
-.warning{
-    font-weight: 900;
+.go-top{
+    position: fixed;
+    bottom: 0;
+    font-size: 2.5rem;
+    right: 12rem;
     cursor: pointer;
+    span{
+        font-size: .7rem;
+    }
 }

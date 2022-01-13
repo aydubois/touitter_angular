@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IAvatar } from '../common/avatar.model';
+import { IAvatar } from '../avatar/avatar.model';
 import { StateService } from '../common/state.service';
 import { IComment, ITouit, ITouitResponse } from '../touit/touit.model';
 import { TouitService } from '../touit/touit.service';
@@ -17,6 +17,7 @@ export class WriteComponent implements OnInit {
   formTouit:FormGroup
   user:IUser
   @Input() placeholder:string
+  @Input() styleForm:string
   @Input() isTouit:boolean
   @Input() touitId:string
   @Output() reload:EventEmitter<boolean> = new EventEmitter()
