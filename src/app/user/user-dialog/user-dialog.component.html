@@ -9,9 +9,9 @@
             <h3>{{user?.username}}</h3>
             <p class="bold" *ngIf="isInfluencer">
                 <ng-container [ngSwitch]="topInfluencer">
-                    <img *ngSwitchCase="3" src="/assets/top3.png"/>
-                    <img *ngSwitchCase="10" src="/assets/top10.png"/>
-                    <img *ngSwitchCase="20" src="/assets/top20.png"/>
+                    <img *ngSwitchCase="3" src="./assets/top3.png"/>
+                    <img *ngSwitchCase="10" src="./assets/top10.png"/>
+                    <img *ngSwitchCase="20" src="./assets/top20.png"/>
                 </ng-container>
                 Influenceur 
             </p>

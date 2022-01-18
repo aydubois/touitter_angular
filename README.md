@@ -1,4 +1,6 @@
 # Touitter
+To see the site online : https://aydubois.github.io/touitter_angular/
+!! Warning !! For the website to work properly you must allow non-secure content on your browser
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.2.
 
