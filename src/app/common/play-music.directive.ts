@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, OnInit } from "@angular/core";
+import { Directive, ElementRef, Input, OnInit } from "@angular/core";
 import { IMusic, Player } from "../music/music.model";
 import { TouitService } from "../touit/touit.service";
 import { StateService } from "./state.service";
@@ -6,26 +6,19 @@ import { StateService } from "./state.service";
 @Directive({
     selector:'[play-music]'
 })
-export class PlayMusicDirective implements AfterViewInit{
+export class PlayMusicDirective implements OnInit{
+    @Input('play-music') musics:IMusic[]
     private el:HTMLElement
-    private currentChildFive:Element
-    private lastChild:Element
 
-    constructor( el:ElementRef, private touitService:TouitService, private stateService:StateService){
+    constructor( el:ElementRef){
         this.el = el.nativeElement
     }
 
-    ngAfterViewInit(): void {
-        this.el.querySelectorAll('a.addMusic').forEach((element)=>{
-            element.addEventListener("click", (event)=>{
-                event.stopPropagation()
-                event.preventDefault()
-                console.log("plop directive music")
-                let music:IMusic = {
-                    url:this.safeUrl(element.textContent),
-                    player:this.getPlayer(element.textContent)
-                }
-                this.stateService.updateMusic(music)
+    ngOnInit(): void {
+        this.el.querySelectorAll('.addMusic').forEach((element)=>{
+            this.musics.push({
+                  url:this.safeUrl(element.textContent),
+                player:this.getPlayer(element.textContent)
             })
         })
     }
@@ -49,15 +42,12 @@ export class PlayMusicDirective implements AfterViewInit{
     safeYoutube(url:string):string{
         let res:string="https://www.youtube.com/embed/"
         let splitTxt = url.split('/')
-        console.log(splitTxt)
+
         if(splitTxt.length > 1){
             let id = splitTxt.pop()
-            console.log("pop", id)
             if(id.includes('watch?v=')){
-                console.log("yeo includes")
                 id = id.split('watch?v=')[1]
             }
-            console.log(id)
             return res + id
         }
         return null
@@ -77,7 +67,6 @@ export class PlayMusicDirective implements AfterViewInit{
                 return  res + splitTxt2.join('/')
             }
             else return null
-
         }
     }
 }

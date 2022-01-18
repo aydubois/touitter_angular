@@ -114,8 +114,8 @@ export class TouitService{
     }
 
 
-    search(searchWorld:string):Observable<ITouit[]>{
-      this.pagination = 30
+    search(searchWorld:string, pagination:number = 30):Observable<ITouit[]>{
+      this.pagination = pagination
       return this.http.get<ITouitResponse>(this.urlApi+'/list')
           .pipe(
             map((res:ITouitResponse)=>{

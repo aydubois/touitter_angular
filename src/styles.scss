@@ -14,6 +14,12 @@
     box-sizing: border-box;
     font-family: monospace;
 }
+.absolute{
+    position: absolute;
+}
+.relative{
+    position: relative;
+}
 .flex-row{
     display: flex;
     flex-direction: row;
@@ -37,7 +43,12 @@ body{
     color:var(--color-txt-white);
     position: relative;
 }
-
+.text-center{
+    text-align: center;
+}
+.text-right{
+    text-align: right;
+}
 
 .hashtag{
     color: var(--green);
@@ -61,6 +72,5 @@ button:hover{
 }
 
 .addMusic{
-    cursor: pointer;
     color: var(--green);
 }

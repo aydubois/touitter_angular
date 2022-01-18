@@ -1,16 +1,30 @@
-<div class="user-container flex-row">
-    <div class="container-avatar">
-        <img src="{{user?.avatar?.avatar}}"/>
-    </div>
-    <div>
-        <h3>{{user?.username}}</h3>
-        <p class="bold" *ngIf="isInfluencer">
-            <ng-container [ngSwitch]="topInfluencer">
-                <img *ngSwitchCase="3" src="/assets/top3.png"/>
-                <img *ngSwitchCase="10" src="/assets/top10.png"/>
-                <img *ngSwitchCase="20" src="/assets/top20.png"/>
-            </ng-container>
-            Influenceur 
-        </p>
-    </div>   
+<div class="user-container"(click)="handleClick()">
+    <p class="absolute up" [ngClass]="isExtend ? 'inverse':''">^</p>
+    <section  class="flex-row">
+
+        <div class="container-avatar">
+            <img src="{{user?.avatar?.avatar}}"/>
+        </div>
+        <div>
+            <h3>{{user?.username}}</h3>
+            <p class="bold" *ngIf="isInfluencer">
+                <ng-container [ngSwitch]="topInfluencer">
+                    <img *ngSwitchCase="3" src="/assets/top3.png"/>
+                    <img *ngSwitchCase="10" src="/assets/top10.png"/>
+                    <img *ngSwitchCase="20" src="/assets/top20.png"/>
+                </ng-container>
+                Influenceur 
+            </p>
+        </div>
+    </section>
+    <section [hidden]="!isExtend" class="extend-container" >
+        <hr>
+        <ul>
+            <li>Mon influence : {{myPlace}} / {{nbUsers}} </li>
+            <li>Max de ♡ sur un touit : {{maxLikedTouit?.likes > 0 ? maxLikedTouit.likes : '-' }}</li>
+            <li>Max de 💬 sur un touit : {{maxCommentedTouit?.comments_count > 0 ? maxCommentedTouit.comments_count : '-' }}</li>
+
+        </ul>
+        
+    </section>   
 </div>

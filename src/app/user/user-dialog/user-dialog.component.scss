@@ -1,17 +1,34 @@
 div.user-container{
+    
     width: 350px;
     background-color: var(--black);
     margin-right: auto;
     position: fixed;
     bottom: 0;
     padding: 0.5rem 0;
-
+    cursor: pointer;
     align-items: center;
+    
+    
     *:not(.container-avatar){
         margin: 0;
         padding: 0;
     }
+    
+    .extend-container{
+        hr{
+            margin:1rem;
+        }
+        ul{
+            margin: auto;
+            width: fit-content;
+        }
+        li{
+            list-style: none;
+        }
+    }
 }
+
 .bold{
     font-weight: 900;
 }
@@ -28,4 +45,18 @@ img{
         border-radius: 50%;
         background-color: #00ba7ccf;
     }
+}
+
+.up{
+    top: 0;
+    right: 0;
+    font-size: 2rem;
+    color: var(--green);
+    &.inverse{
+        transform: scale(1, -1);
+    }
+}
+.user-container:hover .up{
+    top:-5px;
+    transition: top .2s ease-in;
 }

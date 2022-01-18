@@ -6,6 +6,9 @@
     </div>
     <div class="container-touit">
         <h3>{{comment.name}} - <span>{{comment.ts  | date:'dd/MM/yyyy HH:mm'}}</span></h3>
-        <p>{{comment.comment}}</p>
+        <p [innerHtml]="comment.comment|checkMusic" [play-music]="musics"></p>
+        <ng-container *ngIf="musics?.length > 0">
+            <app-music *ngFor="let music of musics" [music]="music"></app-music>
+        </ng-container>
     </div>
 </article>

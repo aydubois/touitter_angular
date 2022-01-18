@@ -4,19 +4,19 @@
 
         <iframe *ngSwitchCase="Player.Spotify" 
             [src]="music.url | safe:'resourceUrl'" 
-            width="350" 
-            height="350" 
+            width="400" 
+            height="200" 
             frameborder="0" 
             allowtransparency="true"></iframe>
 
         <!-- Youtube -->
         <iframe *ngSwitchCase="Player.Youtube" 
-            width="350" 
-            height="350"              
+            width="400" 
+            height="250"              
             [src]="music.url| safe:'resourceUrl'"
             title="" 
             frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allow=" autoplay; encrypted-media; " 
             ></iframe>
 
         <!-- SoundCloud -->

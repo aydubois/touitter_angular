@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IAvatar } from '../avatar/avatar.model';
 import { StateService } from '../common/state.service';
+import { IMusic } from '../music/music.model';
 import { IComment } from '../touit/touit.model';
 import { UserService } from '../user/user.service';
 
@@ -15,6 +16,8 @@ export class CommentComponent implements OnInit {
   @Input() first:boolean
   avatar:IAvatar
   
+  musics:IMusic[]=[]
+
   constructor(private stateService:StateService, private userService:UserService) { }
 
   ngOnInit(): void {

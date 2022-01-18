@@ -21,8 +21,8 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.connectForm = new FormGroup({
-      username:new FormControl('Ponyo', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
-      password: new FormControl('jesuisunepatate', [Validators.required, Validators.minLength(8)])
+      username:new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)])
     })
     if(localStorage.length > 0 && localStorage.getItem('userTouitterA')&& localStorage.getItem('userTouitterB')){
       let u = localStorage.getItem('userTouitterA')
@@ -48,7 +48,7 @@ export class UserComponent implements OnInit {
     (err:HttpErrorResponse)=>{
       if(this.auto === false){
         if(err?.error?.error === "Bad username or password !"){
-          this.errorMessage = "Username ou mot de passe incorrect"
+          this.errorMessage = "Quelque chose est incorrect. Rappelle-toi que tous les comptes sont desactivés au bout de 24h."
         }else{
           this.errorMessage = "Oups, impossible de te connecter pour le moment. Réessaie plus tard."
         }

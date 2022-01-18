@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { StateService } from 'src/app/common/state.service';
+import { Component, Input } from '@angular/core';
 import { IMusic, Player } from '../music.model';
 
 @Component({
@@ -7,22 +6,8 @@ import { IMusic, Player } from '../music.model';
   templateUrl: './music.component.html',
   styleUrls: ['./music.component.scss']
 })
-export class MusicComponent implements OnInit {
-  music:IMusic
+export class MusicComponent  {
+  @Input() music:IMusic
   Player=Player
-  constructor(private stateService:StateService) { }
 
-  ngOnInit(): void {
-    this.stateService.music.subscribe((music:IMusic)=>{
-      this.music = music
-      console.log("musicccc", music)
-      if(music.url){
-        this.playMusic()
-      }
-    })
-  }
-
-  playMusic(){
-    //
-  }
 }

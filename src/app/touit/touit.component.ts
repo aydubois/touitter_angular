@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { DomSanitizer } from '@angular/platform-browser';
 import { IAvatar } from '../avatar/avatar.model';
 import { StateService } from '../common/state.service';
+import { IMusic } from '../music/music.model';
 import { IUser } from '../user/user.model';
 import { UserService } from '../user/user.service';
 import { ITouit } from './touit.model';
@@ -21,6 +22,8 @@ export class TouitComponent implements OnInit, OnChanges {
   @Input() touit:ITouit
   @Input() inModal:boolean = false
   @Output() openModalComment:EventEmitter<string>=new EventEmitter()
+  
+  musics:IMusic[]=[]
 
   constructor(private touitService:TouitService, private userService:UserService, private stateService:StateService, private sanitizer:DomSanitizer) { }
 
@@ -106,6 +109,7 @@ export class TouitComponent implements OnInit, OnChanges {
   seeMore(){
     console.log("pouet")
     this.seeMoreTouit.emit(this.touit)
+    window.scrollTo({top:0})
 
   }
 }

@@ -7,7 +7,7 @@ import { StateService } from "./state.service";
 })
 export class CheckMusicPipe implements PipeTransform{
     
-    constructor( private stateService:StateService, private sanitizer:DomSanitizer){
+    constructor( private sanitizer:DomSanitizer){
     
     }
 
@@ -25,11 +25,10 @@ export class CheckMusicPipe implements PipeTransform{
                 text2 = text[1].split(" ")
                 url = text2[0]                
                 if(url.length>0){
-                    modifiedText = text[0]+ '<a class="addMusic">'+url+'</a>'
+                    modifiedText = text[0]+ '<span class="addMusic">'+url+'</span>'
                     if(text2[1]){
                         modifiedText = modifiedText + text2[1]
                     }
-                    console.log(modifiedText)
                     return this.sanitizer.bypassSecurityTrustHtml(modifiedText) 
                 }
             }    

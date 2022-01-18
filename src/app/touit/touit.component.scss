@@ -23,8 +23,11 @@ article{
     }
     .container-touit{
         width: 100%;
+        .message{
+            cursor: pointer;
+        }
         h3 > span{
-            font-size: .7em;
+            font-size: .7rem;
             color: var(--color-txt-grey);
         }
         p{
@@ -45,7 +48,7 @@ article{
             }
             span{
                 color:var(--color-txt-grey);
-                font-size: .8em;
+                font-size: .8rem;
             }
         }
     }
