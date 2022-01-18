@@ -1,14 +1,7 @@
 <main class="flex-row">
     <aside class="oups">
-        <p>TODO</p>
-        <ul>
-            <!-- <li>Supp. Double instance service</li> -->
-            <!-- <li>Ajout. wordSearch => stateService</li>
-            <li>Ajout. section "commentaires" => click touit</li> -->
-            <li>Ajout. section "suggestion" => influenceurs</li>
-            <!-- <li>Ancre "retour en haut"</li> -->
-            <li>Ancre - profil</li>
-        </ul>
+        <app-music></app-music>
+        <app-user-dialog></app-user-dialog>
     </aside>
     <div>
         <app-user *ngIf="!isConnected" ></app-user>
@@ -18,6 +11,7 @@
     <aside class="oups">
         <app-search-bar></app-search-bar>
         <app-trendy-touit></app-trendy-touit>
+        <app-influencers></app-influencers>
     </aside>
 </main>
 <div class="go-top" (click)="goTop()">⬆<span>en haut</span></div>

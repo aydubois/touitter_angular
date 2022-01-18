@@ -1,0 +1,7 @@
+<article>
+    <h2>Influenceurs</h2>
+    <div class="one-trend" (click)="search(influencer)" *ngFor="let influencer of influencers;let index = index">
+        <h3>{{influencer.name}}</h3>
+        <p>{{influencer.messages}} messages postés et {{influencer.comments}} commentaires.</p>
+     </div>
+</article>

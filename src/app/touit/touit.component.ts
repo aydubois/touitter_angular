@@ -1,11 +1,10 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IAvatar } from '../avatar/avatar.model';
 import { StateService } from '../common/state.service';
 import { IUser } from '../user/user.model';
 import { UserService } from '../user/user.service';
-import { IComment, ITouit, ITouitResponse } from './touit.model';
+import { ITouit } from './touit.model';
 import { TouitService } from './touit.service';
 
 @Component({
@@ -15,13 +14,13 @@ import { TouitService } from './touit.service';
 })
 export class TouitComponent implements OnInit, OnChanges {
 
-  messageOriginal:string
+  user:IUser
+  avatar:IAvatar
+  // messageOriginal:string
   @Output() seeMoreTouit: EventEmitter<ITouit>=new EventEmitter()
   @Input() touit:ITouit
-  user:IUser
   @Input() inModal:boolean = false
   @Output() openModalComment:EventEmitter<string>=new EventEmitter()
-  avatar:IAvatar
 
   constructor(private touitService:TouitService, private userService:UserService, private stateService:StateService, private sanitizer:DomSanitizer) { }
 
@@ -96,8 +95,7 @@ export class TouitComponent implements OnInit, OnChanges {
 
   retouit(){
     if(this.user){
-      let message = this.messageOriginal || this.touit.message
-      message = "@"+this.user.username+" a retwouitté un touit de @"+this.touit.name+": \n "+message
+      let message = "@"+this.user.username+" a retwouitté un touit de @"+this.touit.name+": \n "+this.touit.message
       this.touitService.sendTouit(this.user.access_token, message).subscribe(res=>{
 
         this.touitService.getTouits().subscribe((touits:ITouit[])=>{this.stateService.updateTouits(touits)})

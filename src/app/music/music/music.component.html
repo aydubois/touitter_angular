@@ -1,0 +1,32 @@
+<section class="music-container" *ngIf="music.url">
+    <ng-container [ngSwitch]="music.player">
+        <!-- Spotify -->
+
+        <iframe *ngSwitchCase="Player.Spotify" 
+            [src]="music.url | safe:'resourceUrl'" 
+            width="350" 
+            height="350" 
+            frameborder="0" 
+            allowtransparency="true"></iframe>
+
+        <!-- Youtube -->
+        <iframe *ngSwitchCase="Player.Youtube" 
+            width="350" 
+            height="350"              
+            [src]="music.url| safe:'resourceUrl'"
+            title="" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            ></iframe>
+
+        <!-- SoundCloud -->
+        <!-- <iframe  *ngSwitchCase="Player.SoundCloud" 
+            width="350" 
+            height="200" 
+            scrolling="no" 
+            frameborder="no" 
+            allow="autoplay" 
+            [src]="music.url| safe:'resourceUrl'" ></iframe> -->
+
+    </ng-container>
+</section>

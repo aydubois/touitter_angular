@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit {
       else
         this.isConnected = false
       this.user=user
-      console.log(this)
     })
 
     this.stateService.search.subscribe((search:string)=>{

@@ -20,6 +20,12 @@ import { InfiniteScrollDirective } from './common/infinite-scroll.directive';
 import { SearchBarComponent } from './search/search-bar/search-bar.component';
 import { TrendyTouitComponent } from './trendy/trendy-touit/trendy-touit.component';
 import { TouitCommentsComponent } from './touit/touit-comments/touit-comments.component';
+import { InfluencersComponent } from './trendy/influencers/influencers.component';
+import { UserDialogComponent } from './user/user-dialog/user-dialog.component';
+import { EncryptDecryptService } from './comment/encrypt-decrypt.service';
+import { MusicComponent } from './music/music/music.component';
+import { CheckMusicPipe } from './common/check-music.pipe';
+import { PlayMusicDirective } from './common/play-music.directive';
 
 @NgModule({
   declarations: [
@@ -33,9 +39,14 @@ import { TouitCommentsComponent } from './touit/touit-comments/touit-comments.co
     ModalTriggerDirective,
     ModalTriggerCloseDirective,
     InfiniteScrollDirective,
+    CheckMusicPipe,
     SearchBarComponent,
     TrendyTouitComponent,
-    TouitCommentsComponent
+    TouitCommentsComponent,
+    InfluencersComponent,
+    UserDialogComponent,
+    MusicComponent,
+    PlayMusicDirective
   ],
   imports: [
     BrowserModule, 
@@ -44,7 +55,7 @@ import { TouitCommentsComponent } from './touit/touit-comments/touit-comments.co
     ReactiveFormsModule,
     FormsModule,
   ],
-  providers: [StateService,TouitService, UserService, TrendService],
+  providers: [StateService,TouitService, UserService, TrendService,EncryptDecryptService],
   bootstrap: [HomeComponent]
 })
 export class AppModule { }

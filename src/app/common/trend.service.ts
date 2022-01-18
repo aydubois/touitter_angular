@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core"
 import { Observable, map } from "rxjs"
 import { environment } from "src/environments/environment"
 import { ITouitResponse } from "../touit/touit.model"
+import { IInfluencer } from "../trendy/influencers/influencer.model"
 import { IWordTrendy } from "../trendy/trendy-touit/word-trendy.model"
 
 @Injectable()
@@ -28,8 +29,24 @@ export class TrendService{
         )
     }
 
-    getInfluencers():Observable<Object>{
-        return this.http.get<Object>(this.urlApi+'/influencers')
+    getInfluencers(count:number=5):Observable<IInfluencer[]>{
+        let params = new HttpParams().set("count", count)
+
+        return this.http.get<Object>(this.urlApi+'/influencers', {params:params}).pipe(
+            map((res:any)=>{
+                
+                let influencers:IInfluencer[] = []
+                for(let key in res.influencers){
+                    influencers.push({
+                        name:key,
+                        comments:res.influencers[key].comments,
+                        messages:res.influencers[key].messages,
+                    })
+                }
+                influencers.sort((x:IInfluencer,y:IInfluencer)=>{return (y.comments + y.messages) - (x.comments + x.messages)})
+                return influencers
+            })
+        )
     }
 
     getTouitsMostLiked(count:number):Observable<{top:ITouitResponse[]}>{

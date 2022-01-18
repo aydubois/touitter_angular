@@ -5,7 +5,7 @@
     </div>
     <div class="container-touit">
         <h3>{{touit.name}} - <span>{{touit.ts  | date:'dd/MM/yyyy HH:mm'}}</span></h3>
-        <p (click)="seeMore()">{{touit.message}}</p>
+        <p (click)="seeMore()" [innerHtml]="touit.message|checkMusic" play-music></p>
         <div class="flex-row flex-between" [ngClass]="inModal ? 'hide':''">
             <div class="comments flex-row flex-center" modal-trigger="addComment" (click)="openModal()">
                 <img src="/assets/svg/comments-regular.svg" alt="comments"/>

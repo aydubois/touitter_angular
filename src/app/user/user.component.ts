@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { EncryptDecryptService } from '../comment/encrypt-decrypt.service';
 import { StateService } from '../common/state.service';
 import { IUser } from './user.model';
 import { UserService } from './user.service';
@@ -15,34 +16,42 @@ export class UserComponent implements OnInit {
   errorMessage:string
   messageRegister:string
   user:IUser 
-
-  // @Output() getUser:EventEmitter<IUser> = new EventEmitter()
-  constructor(private userService:UserService, private stateService:StateService) { }
+  auto:boolean=false
+  constructor(private cryptService:EncryptDecryptService, private userService:UserService, private stateService:StateService) { }
 
   ngOnInit(): void {
     this.connectForm = new FormGroup({
       username:new FormControl('Ponyo', [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
       password: new FormControl('jesuisunepatate', [Validators.required, Validators.minLength(8)])
+    })
+    if(localStorage.length > 0 && localStorage.getItem('userTouitterA')&& localStorage.getItem('userTouitterB')){
+      let u = localStorage.getItem('userTouitterA')
+      let p = this.cryptService.decrypt(localStorage.getItem('userTouitterB'))
+      this.connectForm.setValue({username:u,password:p})
+      this.auto = true
+      this.connect(this.connectForm.getRawValue())
+
     }
-    )
   }
 
   connect(formValues:IUser){
     this.userService.connectUser(formValues).subscribe((res:any)=>{
       this.user = {
         username:formValues.username,
-        password:formValues.password,
+        password:this.cryptService.encrypt(formValues.password),
         access_token:res?.access_token
       }
       this.errorMessage = ""
       this.stateService.updateUser(this.user)
-      // this.getUser.emit(this.user)
+      this.stockageStorage()
     },
     (err:HttpErrorResponse)=>{
-      if(err?.error?.error === "Bad username or password !"){
-        this.errorMessage = "Username ou mot de passe incorrect"
-      }else{
-        this.errorMessage = "Oups, impossible de te connecter pour le moment. Réessaie plus tard."
+      if(this.auto === false){
+        if(err?.error?.error === "Bad username or password !"){
+          this.errorMessage = "Username ou mot de passe incorrect"
+        }else{
+          this.errorMessage = "Oups, impossible de te connecter pour le moment. Réessaie plus tard."
+        }
       }
     })
   }
@@ -58,4 +67,8 @@ export class UserComponent implements OnInit {
     })
   }
 
+  stockageStorage(){
+    localStorage.setItem('userTouitterA',this.user.username)
+    localStorage.setItem('userTouitterB',this.user.password)
+  }
 }
